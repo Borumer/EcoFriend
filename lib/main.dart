@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'leaderboard.dart';
+import 'profile.dart';
+import 'stream.dart';
 
 void main() => runApp(MyApp());
 
