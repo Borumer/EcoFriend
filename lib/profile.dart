@@ -22,9 +22,17 @@ class MyApp extends StatelessWidget {
             body: SafeArea(
                 child: Center(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      new Container(
+                  Center(
+                    child: CircleAvatar(
+                  radius: 100,
+                    backgroundImage: AssetImage('alt1.png'
+                    ),
+                  ),
+                ),
+                      /*new Container(
                           width: 190.0,
                           height: 190.0,
                           decoration: new BoxDecoration(
@@ -34,7 +42,7 @@ class MyApp extends StatelessWidget {
                                   image: new AssetImage(
                                       "alt1.png")
                               )
-                          )),
+                          )),*/
                   Text(
                     'Test User',
                     style: TextStyle(
