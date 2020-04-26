@@ -19,7 +19,7 @@ class _ProfileState extends State<Profile> {
     return MaterialApp(
       title: 'Your Local Profile',
       home: Scaffold(
-          bottomNavigationBar: displayNav(context),
+
       ),
     );
   }
@@ -35,11 +35,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        bottomNavigationBar: displayNav(context),
         appBar: AppBar(
-          title: Text(
-              "Profile Page UI",
-              style: TextStyle(fontSize: 18.0)
+          title: Text("Profile Page UI",
+              style: TextStyle(fontSize: 18.0),
           ),
+          backgroundColor: Colors.green[900],
         ),
         backgroundColor: Colors.green[300],
         body: SafeArea(
@@ -50,9 +51,7 @@ class MyApp extends StatelessWidget {
                Center(
                   child: CircleAvatar(
                     radius: 100,
-                       child: Image(
-                         image: NetworkImage('https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'),
-                       )
+                         backgroundImage: NetworkImage('https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'),
                       ),
                   ),
                 Text(
