@@ -3,14 +3,30 @@ import 'leaderboard.dart';
 import 'profile.dart';
 import 'stream.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MaterialApp(
+    title: 'EcoFriend',
+    // Start the app with the "/" named route. In this case, the app starts
+    // on the FirstScreen widget.
+    initialRoute: '/',
+    routes: {
+      // When navigating to the "/" route, build the FirstScreen widget.
+      '/': (context) => MyHomePage(),
+      // When navigating to the "/Leaderboard" route, build the Leaderboard widget.
+      '/Leaderboard': (context) => Leaderboard(),
+      '/Profile': (context) => Profile(),
+      '/Stream': (context) => Stream()
+    },
+  ));
+
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'EcoFriend',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -133,14 +149,19 @@ class _MyHomePageState extends State<MyHomePage> {
         Icon(icon, color: color),
         Container(
           margin: const EdgeInsets.only(top: 8),
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              color: color,
+          child: RaisedButton(
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: color,
+              ),
             ),
-          ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/' + label);
+            }
+          )
         ),
       ],
     );
