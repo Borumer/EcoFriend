@@ -15,7 +15,19 @@ class Leaderboard extends StatefulWidget {
 class _LeaderboardState extends State<Leaderboard> {
   Widget _buildFilterSection() {
     return Container(
-      child: Text("Hello!")
+      padding: EdgeInsets.all(10.0),
+      child: DropdownButton<String>(
+        hint: Text("Choose your team"),
+        items: <String>['Individual', 'School', 'State', 'Global'].map((String value) {
+          return new DropdownMenuItem<String>(
+            value: value,
+            child: new Text(value),
+          );
+        }).toList(),
+        onChanged: (_) {
+
+        },
+      )
     );
   }
 

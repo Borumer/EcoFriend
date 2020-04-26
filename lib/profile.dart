@@ -47,7 +47,7 @@ class _ProfileState extends State<Profile> {
 
                 //UserName
                 Text(
-                  'John Doe',
+                  'Jane Doe',
                   style: TextStyle(fontFamily: 'Roboto-BlacklistingTextInputFormatter', fontSize: 25,),
                 ),
 
