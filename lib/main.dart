@@ -1,15 +1,17 @@
+import 'package:enviroshare/login.dart';
 import 'package:flutter/material.dart';
 import 'leaderboard.dart';
 import 'profile.dart';
 import 'stream.dart';
 import 'nav.dart';
+import 'login.dart';
 
 void main() {
   runApp(MaterialApp(
     title: 'EcoFriend',
     // Start the app with the "/" named route. In this case, the app starts
     // on the FirstScreen widget.
-    initialRoute: '/',
+    initialRoute: '/Login',
     routes: {
       // When navigating to the "/" route, build the MyHomePage widget.
       '/': (context) => MyHomePage(),
@@ -18,7 +20,9 @@ void main() {
       // When navigating to the "/Profile" route, build the Profile widget.
       '/Profile': (context) => Profile(),
       // When navigating to the "/Stream" route, build the Stream widget.
-      '/Stream': (context) => Stream()
+      '/Stream': (context) => Stream(),
+      // When logging in, build the Login widget.
+      '/Login': (context) => Login()
     },
   ));
 
@@ -115,9 +119,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             titleSection,
             textSection,
-            displayNav(context)
           ],
         ),
+        bottomNavigationBar: displayNav(context),
       ),
     );
   }
