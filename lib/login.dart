@@ -33,6 +33,7 @@ class _LoginState extends State<Login> {
                 if (_formKey.currentState.validate()) {
                   print (userEmail.text);
                   _read();
+                  Navigator.pushNamed(context, '/Stream');
                 }
               },
               child: Text('Submit'),
@@ -59,18 +60,7 @@ class _LoginState extends State<Login> {
 }
 
 _read() async {
-  final prefs = await SharedPreferences.getInstance();
-  final key = 'my_int_key';
-  final value = prefs.getInt(key) ?? 0;
-  print('read: $value');
-}
 
-_save() async {
-  final prefs = await SharedPreferences.getInstance();
-  final key = 'my_int_key';
-  final value = 42;
-  prefs.setInt(key, value);
-  print('saved $value');
 }
 
 Widget _buildAFormField({String label, TextEditingController controller, obscureText = false}) {

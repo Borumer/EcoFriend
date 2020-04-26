@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'login.dart';
+import 'package:sqflite/sqflite.dart';
 
 class Register extends StatefulWidget {
   Register({Key key, this.title}) : super(key: key);
@@ -40,8 +40,8 @@ class _RegisterState extends State<Register> {
                 // the form is invalid.
                 if (_formKey.currentState.validate()) {
                   // Process data
-
-                  _read();
+                  _save();
+                  Navigator.pushNamed(context, '/Stream');
                 }
               },
               child: Text('Submit'),
@@ -67,19 +67,12 @@ class _RegisterState extends State<Register> {
   }
 }
 
-_read() async {
-  final prefs = await SharedPreferences.getInstance();
-  final key = 'my_int_key';
-  final value = prefs.getInt(key) ?? 0;
-  print('read: $value');
-}
-
 _save() async {
-  final prefs = await SharedPreferences.getInstance();
-  final key = 'my_int_key';
-  final value = 42;
-  prefs.setInt(key, value);
-  print('saved $value');
+  print ("Hello");
+  var db = await openDatabase('envirodata.db');
+  List<Map> list = await db.rawQuery('SELECT * FROM Test');
+  print("Hello neightbor: ");
+  print (list);
 }
 
 Widget _buildAFormField({String label, TextEditingController controller, obscureText = false}) {

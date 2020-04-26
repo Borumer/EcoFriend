@@ -13,24 +13,39 @@ class Leaderboard extends StatefulWidget {
 
 
 class _LeaderboardState extends State<Leaderboard> {
-  Widget _buildLeaderboardSection() {
-    var people = ["Bob", "Fred", "Victoria", "Lan", "Varun", "Jose", "User654335", "User198432", "Neil", ""];
+  Widget _buildFilterSection() {
     return Container(
-        child: ListView.separated(
-          itemCount: 10,
-          itemBuilder: (BuildContext context, int index) {
-            return Container(
-              padding: const EdgeInsets.all(15),
-              height: 50,
-              color: Colors.amber[600],
-              child: Text("${index + 1}             ${people[index]}"),
-            );
-          },
-          separatorBuilder: (BuildContext context,
-              int index) => const Divider(),
+      child: Text("Hello!")
+    );
+  }
+
+  Widget _buildLeaderboardSection() {
+    var people = ["Bob", "Fred", "Victoria", "Lan", "Varun", "Jose", "User654335", "User198432", "Neil", "Mary"];
+    var lb = List<Widget>();
+    for (var i = 0; i < people.length; i++) {
+      lb.add(
+         Container(
+             width: 400,
+             color: Colors.orange[600],
+             padding: EdgeInsets.all(10.0),
+             margin: EdgeInsets.symmetric(vertical: 2),
+             child: Text(
+                 "${i + 1}      ${people[i]}",
+                 style: TextStyle(
+                  fontSize: 20.0,
+                  height: 2,
+                 )
+             )
+         )
+      );
+    }
+    return Container(
+        child: Column(
+          children: lb
         )
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,7 +54,9 @@ class _LeaderboardState extends State<Leaderboard> {
         appBar: AppBar(
           title: Center(child: Text('Your Leaderboard')),
         ),
-        body: _buildLeaderboardSection(),
+        body: ListView(
+            children: [_buildFilterSection(), _buildLeaderboardSection()],
+        ),
         bottomNavigationBar: displayNav(context),
       ),
     );

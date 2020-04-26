@@ -4,6 +4,7 @@ import 'leaderboard.dart';
 import 'profile.dart';
 import 'stream.dart';
 import 'nav.dart';
+import 'register.dart';
 import 'login.dart';
 
 void main() {
@@ -11,7 +12,7 @@ void main() {
     title: 'EcoFriend',
     // Start the app with the "/" named route. In this case, the app starts
     // on the FirstScreen widget.
-    initialRoute: '/Login',
+    initialRoute: '/Register',
     routes: {
       // When navigating to the "/" route, build the MyHomePage widget.
       '/': (context) => MyHomePage(),
@@ -22,7 +23,9 @@ void main() {
       // When navigating to the "/Stream" route, build the Stream widget.
       '/Stream': (context) => Stream(),
       // When logging in, build the Login widget.
-      '/Login': (context) => Login()
+      '/Login': (context) => Login(),
+      // When registering, build the Register widget.
+      '/Register': (context) => Register()
     },
   ));
 
