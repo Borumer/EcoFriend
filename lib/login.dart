@@ -11,7 +11,60 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
+  Widget _buildLoginForm() {
+    final _formKey = GlobalKey<FormState>();
+    const padAmount = 20.0;
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(padAmount),
+            child: TextFormField(
+                decoration: const InputDecoration(
+                    hintText: "Enter your email"
+                ),
+              validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(padAmount),
+            child: TextFormField(
+              obscureText: true,
+              decoration: const InputDecoration(
+                  hintText: "Enter your password"
+              ),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: padAmount),
+            child: RaisedButton(
+              onPressed: () {
+                // Validate will return true if the form is valid, or false if
+                // the form is invalid.
+                if (_formKey.currentState.validate()) {
+                  // Process data.
+                }
+              },
+              child: Text('Submit'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,18 +74,8 @@ class _LoginState extends State<Login> {
           title: Center(child: Text("Login"))
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Text("Email Address"),
-                Text("Password")
-              ],
-            ),
-            Row()
-          ],
-        )
+          children: <Widget>[_buildLoginForm()],
+        ),
       ),
     );
   }
