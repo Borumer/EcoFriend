@@ -10,11 +10,13 @@ void main() {
     // on the FirstScreen widget.
     initialRoute: '/',
     routes: {
-      // When navigating to the "/" route, build the FirstScreen widget.
+      // When navigating to the "/" route, build the MyHomePage widget.
       '/': (context) => MyHomePage(),
       // When navigating to the "/Leaderboard" route, build the Leaderboard widget.
       '/Leaderboard': (context) => Leaderboard(),
+      // When navigating to the "/Profile" route, build the Profile widget.
       '/Profile': (context) => Profile(),
+      // When navigating to the "/Stream" route, build the Stream widget.
       '/Stream': (context) => Stream()
     },
   ));
@@ -98,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildButtonColumn(color, Icons.call, 'Friends'),
+          _buildButtonColumn(color, Icons.call, 'Profile'),
           _buildButtonColumn(color, Icons.near_me, 'Stream'),
           _buildButtonColumn(color, Icons.share, 'Leaderboard'),
         ],
@@ -119,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     return MaterialApp(
-      title: 'Flutter layout demo',
+      title: 'EcoFriend',
       home: Scaffold(
         appBar: AppBar(
           title: Text('Flutter layout demo'),
