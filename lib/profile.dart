@@ -21,16 +21,21 @@ class _ProfileState extends State<Profile> {
       home: Scaffold(
         bottomNavigationBar: displayNav(context),
         appBar: AppBar(
-          title: Text("User Profile",
-            style: TextStyle(fontSize: 18.0),
-          ),
+          title: Text("User Profile", style: TextStyle(fontSize: 18.0),),
           backgroundColor: Colors.green[900],
         ),
+
+        //App background
         backgroundColor: Colors.green[300],
         body: SafeArea(
           child: Center(
             child: ListView(
               children: <Widget>[
+
+                Text(
+                  'John Doe',
+                  style: TextStyle(fontFamily: 'Roboto-BlacklistingTextInputFormatter', fontSize: 10,),
+                ),
 
                 //profile picture
                 Center(
@@ -43,10 +48,7 @@ class _ProfileState extends State<Profile> {
                 //UserName
                 Text(
                   'John Doe',
-                  style: TextStyle(
-                    fontFamily: 'Roboto-BlacklistingTextInputFormatter',
-                    fontSize: 25,
-                  ),
+                  style: TextStyle(fontFamily: 'Roboto-BlacklistingTextInputFormatter', fontSize: 25,),
                 ),
 
                 //User Title
