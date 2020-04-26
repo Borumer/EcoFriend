@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
-
+import 'nav.dart';
 
 class Profile extends StatefulWidget {
   Profile({Key key, this.title}) : super(key: key);
@@ -19,7 +19,7 @@ class _ProfileState extends State<Profile> {
     return MaterialApp(
       title: 'Your Local Profile',
       home: Scaffold(
-
+          bottomNavigationBar: displayNav(context),
       ),
     );
   }
@@ -50,18 +50,11 @@ class MyApp extends StatelessWidget {
                Center(
                   child: CircleAvatar(
                     radius: 100,
-                       child: Image.asset('assets/images/hahaha.png'),
+                       child: Image(
+                         image: NetworkImage('https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'),
+                       )
                       ),
                   ),
-                //Working circular avatar code but uses URL
-                /*Center(
-                  child: CircleAvatar(
-                    radius: 100,
-                    backgroundImage: NetworkImage(
-                    'https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
-                    ),
-                  ),
-                ),*/
                 Text(
                   'Test User',
                   style: TextStyle(
@@ -88,25 +81,20 @@ class MyApp extends StatelessWidget {
                 Card(
                     color: Colors.white,
                     margin:
-                    EdgeInsets.symmetric(/*vertical: 10.0, horizontal 25.0*/),
+                    EdgeInsets.symmetric(),
                     child: ListTile(
-                      leading: Icon(
-                        Icons.phone,
-                        color: Colors.greenAccent[900],
-                      ),
                       title: Text(
                           'Profile:',
-                          style:
-                          TextStyle(fontFamily: 'Roboto-BlacklistingTextInputFormatter')
+                          style: TextStyle(fontSize: 20.0, fontFamily: 'Roboto-BlacklistingTextInputFormatter')
                       ),
                     )),
                 Card(
                   color: Colors.white,
                   margin:
-                  EdgeInsets.symmetric(/*horizontal 25.0, vertical: 10.0*/),
+                  EdgeInsets.symmetric(),
                   child: ListTile(
                     leading: Icon(
-                      Icons.cake,
+                      Icons.done_outline,
                       color: Colors.greenAccent[900],
                     ),
                     title: Text(
