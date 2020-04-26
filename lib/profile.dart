@@ -19,87 +19,73 @@ class _ProfileState extends State<Profile> {
     return MaterialApp(
       title: 'Your Local Profile',
       home: Scaffold(
-
-      ),
-    );
-  }
-}
-
-
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-//This widget is the rest of your application
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
         bottomNavigationBar: displayNav(context),
         appBar: AppBar(
-          title: Text("Profile Page UI",
-              style: TextStyle(fontSize: 18.0),
+          title: Text("User Profile",
+            style: TextStyle(fontSize: 18.0),
           ),
           backgroundColor: Colors.green[900],
         ),
         backgroundColor: Colors.green[300],
         body: SafeArea(
           child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: ListView(
               children: <Widget>[
-               Center(
+
+                //profile picture
+                Center(
                   child: CircleAvatar(
                     radius: 100,
-                         backgroundImage: NetworkImage('https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'),
-                      ),
+                    backgroundImage: NetworkImage('https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'),
                   ),
+                ),
+
+                //UserName
                 Text(
-                  'Test User',
+                  'John Doe',
                   style: TextStyle(
                     fontFamily: 'Roboto-BlacklistingTextInputFormatter',
                     fontSize: 25,
                   ),
                 ),
+
+                //User Title
                 Text(
-                  'Go recycle',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontFamily: 'Roboto-BlacklistingTextInputFormatter',
-                    color: Colors.lightGreen[100],
-                    letterSpacing: 2.5,
-                  ),
+                  'Urban Enviromental Activist',
+                  style: TextStyle(fontSize: 20, fontFamily: 'Roboto-BlacklistingTextInputFormatter', color: Colors.lightGreen[100], letterSpacing: 2.5,),
                 ),
                 SizedBox(
-                  height: 20.0,
-                  width: 200,
-                  child: Divider(
-                    color: Colors.greenAccent[100],
-                  ),
+                  height: 15.0,
+                  width: 150,
+                  child: Divider(color: Colors.greenAccent[100],),
                 ),
+
+                //profile card
                 Card(
                     color: Colors.white,
                     margin:
                     EdgeInsets.symmetric(),
                     child: ListTile(
-                      title: Text(
-                          'Profile:',
-                          style: TextStyle(fontSize: 20.0, fontFamily: 'Roboto-BlacklistingTextInputFormatter')
-                      ),
+                      title: Text('Profile:', style: TextStyle(fontSize: 20.0, fontFamily: 'Roboto-BlacklistingTextInputFormatter')),
                     )),
+
+                //Team Card
                 Card(
                   color: Colors.white,
                   margin:
                   EdgeInsets.symmetric(),
                   child: ListTile(
-                    leading: Icon(
-                      Icons.done_outline,
-                      color: Colors.greenAccent[900],
-                    ),
-                    title: Text(
-                      'Likes Count',
-                      style: TextStyle(fontSize: 20.0, fontFamily: 'Roboto-BlacklistingTextInputFormatter'),
-                    ),
+                    leading: Icon(Icons.brightness_5, color: Colors.deepOrange[900],),
+                    title: Text('Team: Soloar', style: TextStyle(fontSize: 20.0, fontFamily: 'Roboto-BlacklistingTextInputFormatter'),),
+                  ),),
+
+                //Point count since account creation
+                Card(
+                  color: Colors.white,
+                  margin: EdgeInsets.symmetric(),
+                  child: ListTile(
+                    leading: Icon(Icons.done_outline, color: Colors.greenAccent[900],),
+                    title: Text('All time point total', style: TextStyle(fontSize: 20.0, fontFamily: 'Roboto-BlacklistingTextInputFormatter'),),
                   ),
                 )
               ],
@@ -110,3 +96,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+
