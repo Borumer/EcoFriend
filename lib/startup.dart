@@ -20,21 +20,30 @@ class _StartupState extends State<Startup> {
         ),
         body: ListView(
           children: [
-            RaisedButton(
-              child: Text(
-                "Login"
+            Container(
+              child:RaisedButton(
+                child: Text("Login"),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/Login');
+                },
               ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/Login');
-              },
+              margin: EdgeInsets.only(top: 230.0),
+              padding: EdgeInsets.all(5.0),
+              height: 100
             ),
-            RaisedButton(
-              child: Text(
-                "Register"
+
+            Container(
+              child: RaisedButton(
+                child: Text(
+                  "Register"
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/Register');
+                },
               ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/Register');
-              },
+              margin: EdgeInsets.only(top: 20.0),
+              padding: EdgeInsets.all(5.0),
+              height: 100
             )
           ]
         ),

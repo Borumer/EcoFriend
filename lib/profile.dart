@@ -33,7 +33,7 @@ class _ProfileState extends State<Profile> {
               children: <Widget>[
 
                 Text(
-                  'John Doe',
+                  'Jane Doe',
                   style: TextStyle(fontFamily: 'Roboto-BlacklistingTextInputFormatter', fontSize: 10,),
                 ),
 
@@ -41,13 +41,13 @@ class _ProfileState extends State<Profile> {
                 Center(
                   child: CircleAvatar(
                     radius: 100,
-                    backgroundImage: NetworkImage('https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'),
+                    backgroundImage: NetworkImage('https://images.pexels.com/photos/790357/pexels-photo-790357.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),
                   ),
                 ),
 
                 //UserName
                 Text(
-                  'John Doe',
+                  'Jane Doe',
                   style: TextStyle(fontFamily: 'Roboto-BlacklistingTextInputFormatter', fontSize: 25,),
                 ),
 
