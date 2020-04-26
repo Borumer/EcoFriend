@@ -59,7 +59,7 @@ class _RegisterState extends State<Register> {
         appBar: AppBar(
             title: Center(child: Text("Register"))
         ),
-        body: Column(
+        body: ListView(
           children: <Widget>[_buildRegisterForm()],
         ),
       ),

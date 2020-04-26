@@ -51,7 +51,7 @@ class _LoginState extends State<Login> {
         appBar: AppBar(
           title: Center(child: Text("Login"))
         ),
-        body: Column(
+        body: ListView(
           children: <Widget>[_buildLoginForm()],
         ),
       ),
