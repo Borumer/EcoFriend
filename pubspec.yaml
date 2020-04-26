@@ -44,8 +44,8 @@ flutter:
   uses-material-design: true
 
   assets:
-      - images/alt1.png
-      - images/hahaha.png
+      - assets/images/alt1.png
+      - assets/images/hahaha.png
   fonts:
       - family: Roboto-BlacklistingTextInputFormatter
         fonts:

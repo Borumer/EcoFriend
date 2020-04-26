@@ -41,13 +41,18 @@ class MyApp extends StatelessWidget {
               style: TextStyle(fontSize: 18.0)
           ),
         ),
-        backgroundColor: Colors.blue[300],
+        backgroundColor: Colors.green[300],
         body: SafeArea(
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-
+               Center(
+                  child: CircleAvatar(
+                    radius: 100,
+                       child: Image.asset('assets/images/hahaha.png'),
+                      ),
+                  ),
                 //Working circular avatar code but uses URL
                 /*Center(
                   child: CircleAvatar(
@@ -69,7 +74,7 @@ class MyApp extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 20,
                     fontFamily: 'Roboto-BlacklistingTextInputFormatter',
-                    color: Colors.red[400],
+                    color: Colors.lightGreen[100],
                     letterSpacing: 2.5,
                   ),
                 ),
@@ -77,7 +82,7 @@ class MyApp extends StatelessWidget {
                   height: 20.0,
                   width: 200,
                   child: Divider(
-                    color: Colors.teal[100],
+                    color: Colors.greenAccent[100],
                   ),
                 ),
                 Card(
@@ -87,7 +92,7 @@ class MyApp extends StatelessWidget {
                     child: ListTile(
                       leading: Icon(
                         Icons.phone,
-                        color: Colors.teal[900],
+                        color: Colors.greenAccent[900],
                       ),
                       title: Text(
                           'Profile:',
@@ -102,7 +107,7 @@ class MyApp extends StatelessWidget {
                   child: ListTile(
                     leading: Icon(
                       Icons.cake,
-                      color: Colors.teal[900],
+                      color: Colors.greenAccent[900],
                     ),
                     title: Text(
                       'Likes Count',
