@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   Login({Key key, this.title}) : super(key: key);
@@ -16,7 +15,6 @@ class _LoginState extends State<Login> {
     TextEditingController userEmail = new TextEditingController();
     TextEditingController userPassword = new TextEditingController();
     final _formKey = GlobalKey<FormState>();
-    const padAmount = 20.0;
     return Form(
       key: _formKey,
       child: Column(
@@ -51,7 +49,7 @@ class _LoginState extends State<Login> {
         appBar: AppBar(
           title: Center(child: Text("Login"))
         ),
-        body: Column(
+        body: ListView(
           children: <Widget>[_buildLoginForm()],
         ),
       ),

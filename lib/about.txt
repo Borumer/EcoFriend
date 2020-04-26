@@ -1,0 +1,1 @@
+Victoria Nguyen, and Varun Singh, EcoFriend is a social network designed to promote awareness of the environment among teens. The app was made using Flutter and Dart, and is available on all operating systems and web browsers. One can connect multiple social media accounts to EcoFriend in order to populate his or her stream with eco-related posts!',
