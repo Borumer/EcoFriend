@@ -1,29 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'login.dart';
 
-class Login extends StatefulWidget {
-  Login({Key key, this.title}) : super(key: key);
+class Register extends StatefulWidget {
+  Register({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _LoginState createState() => _LoginState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _LoginState extends State<Login> {
+class _RegisterState extends State<Register> {
 
-  Widget _buildLoginForm() {
+  Widget _buildRegisterForm() {
+    final _formKey = GlobalKey<FormState>();
+
     TextEditingController userEmail = new TextEditingController();
     TextEditingController userPassword = new TextEditingController();
-    final _formKey = GlobalKey<FormState>();
-    const padAmount = 20.0;
+    TextEditingController userFirstName = new TextEditingController();
+    TextEditingController userLastName = new TextEditingController();
+    TextEditingController userConfirmPassword = new TextEditingController();
+    
     return Form(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _buildAFormField(label: "email", controller: userEmail),
+          _buildAFormField(label: "first name", controller: userFirstName),
+          _buildAFormField(label: "last name", controller: userLastName),
           _buildAFormField(label: "password", controller: userPassword, obscureText: true),
+          _buildAFormField(label: "password again", controller: userConfirmPassword),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
             child: RaisedButton(
@@ -31,7 +39,8 @@ class _LoginState extends State<Login> {
                 // Validate will return true if the form is valid, or false if
                 // the form is invalid.
                 if (_formKey.currentState.validate()) {
-                  print (userEmail.text);
+                  // Process data
+
                   _read();
                 }
               },
@@ -45,13 +54,13 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Your Local Login',
+      title: 'Your Local Register',
       home: Scaffold(
         appBar: AppBar(
-          title: Center(child: Text("Login"))
+            title: Center(child: Text("Register"))
         ),
         body: Column(
-          children: <Widget>[_buildLoginForm()],
+          children: <Widget>[_buildRegisterForm()],
         ),
       ),
     );
