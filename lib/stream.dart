@@ -22,7 +22,14 @@ class _StreamState extends State<Stream> {
       theme: new ThemeData(
         primarySwatch: Colors.lightGreen,
       ),
-      home: new InfiniteListView(),
+      home: new Scaffold(
+        appBar: new AppBar(title: Center(child: new Text('Your Feed'))),
+        body: new ListView.builder(
+          itemCount: total,
+          itemBuilder: (BuildContext context, int index) => _loadItem(index)
+        ),
+        bottomNavigationBar: displayNav(context),
+      )
     );
   }
 }
@@ -117,7 +124,8 @@ class InfiniteListView extends StatelessWidget {
       appBar: new AppBar(title: Center(child: new Text('Your Feed'))),
       body: new ListView.builder(
           itemCount: total,
-          itemBuilder: (BuildContext context, int index) => _loadItem(index)),
+          itemBuilder: (BuildContext context, int index) => _loadItem(index)
+      ),
       bottomNavigationBar: displayNav(context),
     );
   }

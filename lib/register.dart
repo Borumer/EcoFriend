@@ -41,7 +41,7 @@ class _RegisterState extends State<Register> {
                 if (_formKey.currentState.validate()) {
                   // Process data
                   _save();
-                  Navigator.pushNamed(context, '/Stream');
+                  Navigator.pushNamed(context, '/');
                 }
               },
               child: Text('Submit'),
