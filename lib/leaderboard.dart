@@ -13,21 +13,33 @@ class Leaderboard extends StatefulWidget {
 
 
 class _LeaderboardState extends State<Leaderboard> {
+  String dropdownValue;
   Widget _buildFilterSection() {
+
     return Container(
       padding: EdgeInsets.all(10.0),
       child: DropdownButton<String>(
-        hint: Text("Choose your team"),
-        items: <String>['Individual', 'School', 'State', 'Global'].map((String value) {
-          return new DropdownMenuItem<String>(
+        value: dropdownValue,
+        icon: Icon(Icons.arrow_drop_down),
+        iconSize: 24,
+        elevation: 16,
+        style: TextStyle(color: Colors.red, fontSize: 18),
+        underline: Container(
+          height: 2,
+          color: Colors.deepPurpleAccent,
+        ),
+        onChanged: (String data) {
+          setState(() {
+            dropdownValue = data;
+          });
+        },
+        items: ['Individual', 'School', 'Nation', 'Global'].map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
             value: value,
-            child: new Text(value),
+            child: Text(value),
           );
         }).toList(),
-        onChanged: (_) {
-
-        },
-      )
+      ),
     );
   }
 
@@ -57,7 +69,12 @@ class _LeaderboardState extends State<Leaderboard> {
         )
     );
   }
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    dropdownValue = 'Individual';
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
