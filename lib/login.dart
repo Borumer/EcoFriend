@@ -31,7 +31,7 @@ class _LoginState extends State<Login> {
                 if (_formKey.currentState.validate()) {
                   print (userEmail.text);
                   _read();
-                  Navigator.pushNamed(context, '/Stream');
+                  Navigator.pushNamed(context, '/');
                 }
               },
               child: Text('Submit'),
