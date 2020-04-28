@@ -44,7 +44,14 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-
+  assets:
+    - assets/images/alt1.png
+    - assets/images/hahaha.png
+    - assets/images/lake.jpg
+  fonts:
+    - family: Roboto-BlacklistingTextInputFormatter
+      fonts:
+         - asset: assets/fonts/SourceSansPRO-Regular.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:
