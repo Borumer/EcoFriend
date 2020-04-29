@@ -1,6 +1,7 @@
+import 'package:enviroshare/BLOCS/DatabaseBloc.dart';
 import 'package:flutter/material.dart';
 import 'nav.dart';
-
+import 'ClientModel.dart';
 
 class Leaderboard extends StatefulWidget {
   Leaderboard({Key key, this.title}) : super(key: key);
@@ -20,6 +21,52 @@ class _LeaderboardState extends State<Leaderboard> {
     // TODO: implement initState
     dropdownValue = 'Individual';
     super.initState();
+  }
+
+  final bloc = ClientsBloc();
+  Widget _buildPeopleSection() {
+    List<Client> testClients = [
+      Client(firstName: "Raouf", lastName: "Rahiche"),
+      Client(firstName: "Zaki", lastName: "oun"),
+      Client(firstName: "oussama", lastName: "ali"),
+    ];
+
+    return Container(
+      child: StreamBuilder<List<Client>>(
+        stream: bloc.clients,
+        builder: (BuildContext context, AsyncSnapshot<List<Client>> snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: 10,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                Client item = snapshot.data[index];
+                return Dismissible(
+                  key: UniqueKey(),
+                  background: Container(color: Colors.red),
+                  onDismissed: (direction) {
+                    bloc.delete(item.id);
+                  },
+                  child: ListTile(
+                    title: Text(item.lastName),
+                    leading: Text(item.id.toString()),
+                    trailing: Checkbox(
+                      onChanged: (bool value) {
+
+                      },
+                      value: false,
+                    ),
+                  ),
+                );
+              },
+            );
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
+    );
   }
 
   Widget _buildFilterSection() {
@@ -139,7 +186,7 @@ class _LeaderboardState extends State<Leaderboard> {
           title: Center(child: Text('Your Leaderboard')),
         ),
         body: ListView(
-            children: [_buildFilterSection(), _buildLeaderboardSection()],
+            children: [_buildFilterSection(),  _buildLeaderboardSection(), _buildPeopleSection()],
         ),
         bottomNavigationBar: displayNav(context),
       ),
