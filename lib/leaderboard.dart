@@ -14,6 +14,14 @@ class Leaderboard extends StatefulWidget {
 
 class _LeaderboardState extends State<Leaderboard> {
   String dropdownValue;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    dropdownValue = 'Individual';
+    super.initState();
+  }
+
   Widget _buildFilterSection() {
 
     return Container(
@@ -23,6 +31,7 @@ class _LeaderboardState extends State<Leaderboard> {
         icon: Icon(Icons.arrow_drop_down),
         iconSize: 24,
         elevation: 16,
+        isExpanded: true,
         style: TextStyle(color: Colors.red, fontSize: 18),
         underline: Container(
           height: 2,
@@ -33,7 +42,7 @@ class _LeaderboardState extends State<Leaderboard> {
             dropdownValue = data;
           });
         },
-        items: ['Individual', 'School', 'Nation', 'Global'].map<DropdownMenuItem<String>>((String value) {
+        items: ['Individual', 'School', 'State', 'Nation'].map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: Text(value),
@@ -44,9 +53,60 @@ class _LeaderboardState extends State<Leaderboard> {
   }
 
   Widget _buildLeaderboardSection() {
-    var people = ["Bob", "Fred", "Victoria", "Lan", "Varun", "Jose", "User654335", "User198432", "Neil", "Mary"];
+    List<dynamic> pplData = [{
+      "Individual": "Varun",
+      "School": "Lower Moreland High School",
+      "State": "Pennsylvania",
+      "Nation": "United States"
+    },{
+      "Individual": "Fred",
+      "School": "Upper Moreland High School",
+      "State": "Colorado",
+      "Nation": "Mexico"
+    },{
+      "Individual": "Victoria",
+      "School": "John Hopkins University",
+      "State": "Bayern",
+      "Nation": "Canada"
+    },{
+      "Individual": "Lan",
+      "School": "University of Texas at Dallas",
+      "State": "Goa",
+      "Nation": "India"
+    },{
+      "Individual": "Bob",
+      "School": "Princeton University",
+      "State": "Texas",
+      "Nation": "Germany"
+    },{
+      "Individual": "Jose",
+      "School": "Julia R. Masterman School",
+      "State": "Quintana Roo",
+      "Nation": "China"
+    },{
+      "Individual": "User654335",
+      "School": "James Madison University",
+      "State": "Great Britain",
+      "Nation": "United Kingdom"
+    },{
+      "Individual": "User624965",
+      "School": "Harvard University",
+      "State": "Paris",
+      "Nation": "France"
+    },{
+      "Individual": "Neil",
+      "School": "Concord High School",
+      "State": "New Jersey",
+      "Nation": "Panama"
+    }, {
+      "Individual": "Mary",
+      "School": "Newark High School",
+      "State": "New York",
+      "Nation": "South Africa"
+    }];
     var lb = List<Widget>();
-    for (var i = 0; i < people.length; i++) {
+    for (var i = 0; i < pplData.length; i++) {
+      String val = pplData[i][dropdownValue];
       lb.add(
          Container(
              width: 400,
@@ -54,7 +114,7 @@ class _LeaderboardState extends State<Leaderboard> {
              padding: EdgeInsets.all(10.0),
              margin: EdgeInsets.symmetric(vertical: 2),
              child: Text(
-                 "${i + 1}      ${people[i]}",
+                 "${i + 1}      $val",
                  style: TextStyle(
                   fontSize: 20.0,
                   height: 2,
@@ -69,12 +129,7 @@ class _LeaderboardState extends State<Leaderboard> {
         )
     );
   }
-  @override
-  void initState() {
-    // TODO: implement initState
-    dropdownValue = 'Individual';
-    super.initState();
-  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
