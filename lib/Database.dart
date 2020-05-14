@@ -32,7 +32,8 @@ class DBProvider {
               "school TEXT,"
               "state TEXT,"
               "country TEXT)");
-        });
+        }
+    );
   }
 
   newClient(Client newClient) async {
@@ -41,7 +42,7 @@ class DBProvider {
     var table = await db.rawQuery("SELECT MAX(id)+1 as id FROM Client");
     int id = table.first["id"];
     //insert to the table using the new id
-
+    print ("ID IS: " + id.toString());
     var raw = await db.rawInsert(
         "INSERT Into Client (id,first_name,last_name,school,state,country)"
             " VALUES (?,?,?,?,?,?)",
@@ -62,6 +63,12 @@ class DBProvider {
     return res.isNotEmpty ? Client.fromMap(res.first) : null;
   }
 
+  getClientByName(String name) async {
+    final db = await database;
+    var res = await db.query("Client", where: "last_name = ?", whereArgs: [name]);
+    return res.isNotEmpty ? Client.fromMap(res.first) : null;
+  }
+
   Future<List<Client>> getAllClients() async {
     final db = await database;
     var res = await db.query("Client");
@@ -77,6 +84,6 @@ class DBProvider {
 
   deleteAll() async {
     final db = await database;
-    db.rawDelete("Delete * from Client");
+    db.delete("Client", where: "id > ?", whereArgs: [1]);
   }
 }

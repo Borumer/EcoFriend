@@ -14,9 +14,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   // data for testing
   List<Client> testClients = [
-    Client(firstName: "Raouf", lastName: "Rahiche", school: "Lower Moreland"),
-    Client(firstName: "Zaki", lastName: "oun", school: "Upper Moreland"),
-    Client(firstName: "oussama", lastName: "ali", school: "Moreland"),
+    Client(firstName: "Raouf", lastName: "Rahiche", school: "Lower Moreland", state: "", country: ""),
+    Client(firstName: "Zaki", lastName: "oun", school: "Upper Moreland", state: "", country: ""),
+    Client(firstName: "oussama", lastName: "ali", school: "Moreland", state: "", country: ""),
   ];
 
   final bloc = ClientsBloc();
@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
                     bloc.delete(item.id);
                   },
                   child: ListTile(
-                    title: Text(item.lastName + " " + item.school),
+                    title: Text(item.lastName + " " + (item.school == null ? '' : item.school)),
                     leading: Text(item.id.toString()),
                     trailing: Checkbox(
                       onChanged: (bool value) {

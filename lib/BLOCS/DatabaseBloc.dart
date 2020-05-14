@@ -24,6 +24,18 @@ class ClientsBloc {
     return DBProvider.db.getClient(id);
   }
 
+  getRowByName(String name) {
+    return DBProvider.db.getClientByName(name);
+  }
+
+  deleteAll() {
+    DBProvider.db.deleteAll();
+  }
+
+  update(Client newClient) {
+    DBProvider.db.updateClient(newClient);
+  }
+
   delete(int id) {
     DBProvider.db.deleteClient(id);
     getClients();

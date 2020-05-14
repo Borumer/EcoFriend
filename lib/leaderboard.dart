@@ -25,12 +25,6 @@ class _LeaderboardState extends State<Leaderboard> {
 
   final bloc = ClientsBloc();
   Widget _buildPeopleSection() {
-    List<Client> testClients = [
-      Client(firstName: "Raouf", lastName: "Rahiche"),
-      Client(firstName: "Zaki", lastName: "oun"),
-      Client(firstName: "oussama", lastName: "ali"),
-    ];
-
     return Container(
       child: StreamBuilder<List<Client>>(
         stream: bloc.clients,
@@ -42,21 +36,40 @@ class _LeaderboardState extends State<Leaderboard> {
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
                 Client item = snapshot.data[index];
+                String toDisplay = item.toMap()[dropdownValue.toLowerCase()];
+                if (item == null) {
+                  item = Client(firstName: "Not available", school: "Not available");
+                } else {
+                  if (toDisplay == null) {
+                    toDisplay = item.toMap()['first_name'];
+                    toDisplay += " " + item.toMap()['last_name'];
+                  }
+                }
+
                 return Dismissible(
                   key: UniqueKey(),
                   background: Container(color: Colors.red),
                   onDismissed: (direction) {
                     bloc.delete(item.id);
                   },
-                  child: ListTile(
-                    title: Text(item.lastName),
-                    leading: Text(item.id.toString()),
-                    trailing: Checkbox(
-                      onChanged: (bool value) {
-
-                      },
-                      value: false,
-                    ),
+                  child: Center(
+                      child: Container(
+                        width: 400,
+                        color: Colors.orange[600],
+                        padding: EdgeInsets.all(10.0),
+                        margin: EdgeInsets.symmetric(vertical: 2),
+                        child: ListTile(
+                          title: Text(toDisplay, style: TextStyle(
+                            fontSize: 20.0,
+                            height: 2,
+                          )),
+                          leading: Text((index + 1).toString(), style: TextStyle(
+                            fontSize: 20.0,
+                            height: 2,
+                          )
+                          ),
+                        )
+                    )
                   ),
                 );
               },
@@ -70,7 +83,6 @@ class _LeaderboardState extends State<Leaderboard> {
   }
 
   Widget _buildFilterSection() {
-
     return Container(
       padding: EdgeInsets.all(10.0),
       child: DropdownButton<String>(
@@ -186,7 +198,7 @@ class _LeaderboardState extends State<Leaderboard> {
           title: Center(child: Text('Your Leaderboard')),
         ),
         body: ListView(
-            children: [_buildFilterSection(),  _buildLeaderboardSection(), _buildPeopleSection()],
+            children: [_buildFilterSection(),  _buildPeopleSection()],
         ),
         bottomNavigationBar: displayNav(context),
       ),

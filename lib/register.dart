@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
+import 'ClientModel.dart';
+import 'BLOCS/DatabaseBloc.dart';
 
 class Register extends StatefulWidget {
   Register({Key key, this.title}) : super(key: key);
@@ -39,7 +41,7 @@ class _RegisterState extends State<Register> {
                 // the form is invalid.
                 if (_formKey.currentState.validate()) {
                   // Process data
-                  _save();
+                  _save(userFirstName.text, userLastName.text);
                   Navigator.pushNamed(context, '/');
                 }
               },
@@ -66,12 +68,9 @@ class _RegisterState extends State<Register> {
   }
 }
 
-_save() async {
-  print ("Hello");
-  var db = await openDatabase('envirodata.db');
-  List<Map> list = await db.rawQuery('SELECT * FROM Test');
-  print("Hello neightbor: ");
-  print (list);
+_save(String firstName, String lastName) async {
+  final bloc = ClientsBloc();
+  bloc.add(Client(firstName: firstName, lastName: lastName));
 }
 
 Widget _buildAFormField({String label, TextEditingController controller, obscureText = false}) {

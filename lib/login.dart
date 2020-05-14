@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'BLOCS/DatabaseBloc.dart';
+import 'ClientModel.dart';
 
 class Login extends StatefulWidget {
   Login({Key key, this.title}) : super(key: key);
@@ -29,9 +31,10 @@ class _LoginState extends State<Login> {
                 // Validate will return true if the form is valid, or false if
                 // the form is invalid.
                 if (_formKey.currentState.validate()) {
-                  print (userEmail.text);
-                  _read();
-                  Navigator.pushNamed(context, '/');
+                 final destination = _read(userEmail.text, userPassword.text, context);
+                 destination.then((response) {
+                   Navigator.pushNamed(context, response);
+                 });
                 }
               },
               child: Text('Submit'),
@@ -57,8 +60,13 @@ class _LoginState extends State<Login> {
   }
 }
 
-_read() async {
-
+Future<String> _read(String lastName, String password, BuildContext context) async {
+  final bloc = ClientsBloc();
+  if (await bloc.getRowByName(lastName) != null) {
+    return '/';
+  } else {
+    return '/Login';
+  }
 }
 
 Widget _buildAFormField({String label, TextEditingController controller, obscureText = false}) {
