@@ -14,9 +14,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   // data for testing
   List<Client> testClients = [
-    Client(firstName: "Raouf", lastName: "Rahiche", school: "Lower Moreland", state: "", country: ""),
-    Client(firstName: "Zaki", lastName: "oun", school: "Upper Moreland", state: "", country: ""),
-    Client(firstName: "oussama", lastName: "ali", school: "Moreland", state: "", country: ""),
+    Client(firstName: "Raouf", lastName: "Rahiche", school: "Lower Moreland", state: "", nation: ""),
+    Client(firstName: "Zaki", lastName: "oun", school: "Upper Moreland", state: "", nation: ""),
+    Client(firstName: "oussama", lastName: "ali", school: "Moreland", state: "", nation: ""),
   ];
 
   final bloc = ClientsBloc();

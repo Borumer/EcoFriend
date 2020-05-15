@@ -22,16 +22,19 @@ class DBProvider {
 
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "envirodatabase.db");
+    String path = join(documentsDirectory.path, "EcoFriendDB.db");
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
           await db.execute("CREATE TABLE Client ("
-              "id INTEGER PRIMARY KEY,"
-              "first_name TEXT,"
-              "last_name TEXT,"
-              "school TEXT,"
-              "state TEXT,"
-              "country TEXT)");
+              "id	INTEGER,"
+              "first_name	TEXT,"
+              "last_name	TEXT,"
+              "school	TEXT,"
+              "state	TEXT,"
+              "nation	TEXT,"
+              "points	INTEGER NOT NULL DEFAULT 0,"
+              "PRIMARY KEY('id')"
+          ")");
         }
     );
   }
@@ -44,9 +47,9 @@ class DBProvider {
     //insert to the table using the new id
     print ("ID IS: " + id.toString());
     var raw = await db.rawInsert(
-        "INSERT Into Client (id,first_name,last_name,school,state,country)"
-            " VALUES (?,?,?,?,?,?)",
-        [id, newClient.firstName, newClient.lastName, newClient.school, newClient.state, newClient.country]);
+        "INSERT Into Client (id,first_name,last_name,school,state,nation,points)"
+            " VALUES (?,?,?,?,?,?,0)",
+        [id, newClient.firstName, newClient.lastName, newClient.school, newClient.state, newClient.nation]);
     return raw;
   }
 
@@ -61,6 +64,14 @@ class DBProvider {
     final db = await database;
     var res = await db.query("Client", where: "id = ?", whereArgs: [id]);
     return res.isNotEmpty ? Client.fromMap(res.first) : null;
+  }
+
+  Future<List<Client>> getClientByGroup(String column) async {
+    final db = await database;
+    var res = await db.rawQuery("SELECT * FROM Client");
+    List<Client> list =
+    res.isNotEmpty ? res.map((c) => Client.fromMap(c)).toList() : [];
+    return list;
   }
 
   getClientByName(String name) async {

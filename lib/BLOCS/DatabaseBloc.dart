@@ -28,6 +28,14 @@ class ClientsBloc {
     return DBProvider.db.getClientByName(name);
   }
 
+  getLeaderboardData(String column) {
+    return DBProvider.db.getClientByGroup(column);
+  }
+
+  getLeaderboardDataDefault() {
+    return getLeaderboardData("school");
+  }
+
   deleteAll() {
     DBProvider.db.deleteAll();
   }
