@@ -23,7 +23,51 @@ class _LeaderboardState extends State<Leaderboard> {
     super.initState();
   }
 
+  final TextStyle lbSlot = TextStyle(
+    fontSize: 20.0,
+    height: 2,
+  );
   ClientsBloc bloc = ClientsBloc();
+
+  Widget _buildGroupedSection() {
+    return Container(
+      child: StreamBuilder<List<Client>>(
+        stream: Stream.fromFuture(bloc.getLeaderboardDataDefault()),
+        builder: (BuildContext context, AsyncSnapshot<List<Client>> snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: 10,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                Client item = snapshot.data[index];
+                return Container(
+                  child: Center(
+                      child: Container(
+                          width: 400,
+                          color: Colors.orange[600],
+                          padding: EdgeInsets.all(10.0),
+                          margin: EdgeInsets.symmetric(vertical: 2),
+                          child: ListTile(
+                              title: Text(item.toMap()['school'], style: lbSlot),
+                              leading: Text((index + 1).toString(), style: lbSlot,
+                              ),
+                              trailing: Text(item.toMap()['points'].toString() + " pts")
+                          )
+                      )
+                  ),
+                );
+              }
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator()
+            );
+          }
+        },
+      )
+    );
+  }
 
   Widget _buildPeopleSection() {
     return Container(
@@ -55,14 +99,8 @@ class _LeaderboardState extends State<Leaderboard> {
                         padding: EdgeInsets.all(10.0),
                         margin: EdgeInsets.symmetric(vertical: 2),
                         child: ListTile(
-                          title: Text(toDisplay, style: TextStyle(
-                            fontSize: 20.0,
-                            height: 2,
-                          )),
-                          leading: Text((index + 1).toString(), style: TextStyle(
-                            fontSize: 20.0,
-                            height: 2,
-                            ),
+                          title: Text(toDisplay, style: lbSlot),
+                          leading: Text((index + 1).toString(), style: lbSlot,
                           ),
                           trailing: Text(item.toMap()['points'].toString() + " pts")
                         )
