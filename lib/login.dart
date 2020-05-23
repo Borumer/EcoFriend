@@ -14,7 +14,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
 
   Widget _buildLoginForm() {
-    TextEditingController userEmail = new TextEditingController();
+    TextEditingController userName = new TextEditingController();
     TextEditingController userPassword = new TextEditingController();
     final _formKey = GlobalKey<FormState>();
     return Form(
@@ -22,7 +22,7 @@ class _LoginState extends State<Login> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _buildAFormField(label: "email", controller: userEmail),
+          _buildAFormField(label: "name", controller: userName),
           _buildAFormField(label: "password", controller: userPassword, obscureText: true),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
@@ -31,7 +31,7 @@ class _LoginState extends State<Login> {
                 // Validate will return true if the form is valid, or false if
                 // the form is invalid.
                 if (_formKey.currentState.validate()) {
-                 final destination = _read(userEmail.text, userPassword.text, context);
+                 final destination = _read(userName.text, userPassword.text, context);
                  destination.then((response) {
                    Navigator.pushNamed(context, response);
                  });

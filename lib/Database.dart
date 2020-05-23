@@ -68,7 +68,7 @@ class DBProvider {
 
   Future<List<Client>> getClientByGroup(String column) async {
     final db = await database;
-    var res = await db.rawQuery("SELECT * FROM Client");
+    var res = await db.rawQuery("SELECT * FROM Client GROUP BY ? ORDER BY points DESC", [column]);
     List<Client> list =
     res.isNotEmpty ? res.map((c) => Client.fromMap(c)).toList() : [];
     return list;
@@ -76,7 +76,7 @@ class DBProvider {
 
   getClientByName(String name) async {
     final db = await database;
-    var res = await db.query("Client", where: "last_name = ?", whereArgs: [name]);
+    var res = await db.rawQuery("SELECT * FROM Client WHERE last_name = ? OR first_name = ?", [name, name]);
     return res.isNotEmpty ? Client.fromMap(res.first) : null;
   }
 

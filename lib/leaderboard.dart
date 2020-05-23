@@ -26,7 +26,6 @@ class _LeaderboardState extends State<Leaderboard> {
   ClientsBloc bloc = ClientsBloc();
 
   Widget _buildPeopleSection() {
-    Future<List<Client>> test = bloc.getLeaderboardDataDefault();
     return Container(
       child: StreamBuilder<List<Client>>(
         stream: bloc.clients,
@@ -48,12 +47,7 @@ class _LeaderboardState extends State<Leaderboard> {
                   }
                 }
 
-                return Dismissible(
-                  key: UniqueKey(),
-                  background: Container(color: Colors.red),
-                  onDismissed: (direction) {
-                    bloc.delete(item.id);
-                  },
+                return Container(
                   child: Center(
                       child: Container(
                         width: 400,
@@ -68,8 +62,9 @@ class _LeaderboardState extends State<Leaderboard> {
                           leading: Text((index + 1).toString(), style: TextStyle(
                             fontSize: 20.0,
                             height: 2,
-                          )
+                            ),
                           ),
+                          trailing: Text(item.toMap()['points'].toString() + " pts")
                         )
                     )
                   ),
@@ -122,7 +117,7 @@ class _LeaderboardState extends State<Leaderboard> {
           title: Center(child: Text('Your Leaderboard')),
         ),
         body: ListView(
-            children: [_buildFilterSection(),  _buildPeopleSection()],
+            children: [_buildFilterSection(),  _buildPeopleSection(), _buildGroupedSection()],
         ),
         bottomNavigationBar: displayNav(context),
       ),
