@@ -18,6 +18,7 @@ class Client {
   String nation;
   String state;
   int points;
+  String password;
 
   Client({
     this.id,
@@ -26,7 +27,8 @@ class Client {
     this.school,
     this.nation,
     this.state,
-    this.points
+    this.points,
+    this.password
   });
 
   factory Client.fromMap(Map<String, dynamic> json) => new Client(
@@ -37,6 +39,7 @@ class Client {
     nation: json["nation"],
     state: json["state"],
     points: json["points"],
+    password: json["password"]
   );
 
   Map<String, dynamic> toMap() => {
@@ -47,5 +50,6 @@ class Client {
     "nation": nation,
     "state": state,
     "points": points,
+    "password": password
   };
 }

@@ -33,6 +33,7 @@ class DBProvider {
               "state	TEXT,"
               "nation	TEXT,"
               "points	INTEGER NOT NULL DEFAULT 0,"
+              "password	TEXT DEFAULT 'password',"
               "PRIMARY KEY('id')"
           ")");
         }
@@ -47,9 +48,9 @@ class DBProvider {
     //insert to the table using the new id
     print ("ID IS: " + id.toString());
     var raw = await db.rawInsert(
-        "INSERT Into Client (id,first_name,last_name,school,state,nation,points)"
-            " VALUES (?,?,?,?,?,?,0)",
-        [id, newClient.firstName, newClient.lastName, newClient.school, newClient.state, newClient.nation]);
+        "INSERT Into Client (id,first_name,last_name,school,state,nation,points,password)"
+            " VALUES (?,?,?,?,?,?,0,?)",
+        [id, newClient.firstName, newClient.lastName, newClient.school, newClient.state, newClient.nation, newClient.password]);
     return raw;
   }
 

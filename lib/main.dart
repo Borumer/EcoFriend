@@ -99,8 +99,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
 
-    Color color = Theme.of(context).primaryColor;
-
     Widget textSection = Container(
       padding: const EdgeInsets.all(32),
       child: Text(

@@ -69,10 +69,13 @@ class _LeaderboardState extends State<Leaderboard> {
     );
   }
 
+  ClientsBloc bloc2 = ClientsBloc();
+
   Widget _buildPeopleSection() {
+    print(bloc2.clients.toString());
     return Container(
       child: StreamBuilder<List<Client>>(
-        stream: bloc.clients,
+        stream: bloc2.clients,
         builder: (BuildContext context, AsyncSnapshot<List<Client>> snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -154,8 +157,15 @@ class _LeaderboardState extends State<Leaderboard> {
         appBar: AppBar(
           title: Center(child: Text('Your Leaderboard')),
         ),
-        body: ListView(
-            children: [_buildFilterSection(),  _buildPeopleSection(), _buildGroupedSection()],
+        body: ScrollConfiguration(
+          behavior: ScrollBehavior(),
+          child: GlowingOverscrollIndicator(
+            axisDirection: AxisDirection.down,
+            color: Colors.deepOrange,
+            child: ListView(
+              children: [_buildFilterSection(),  _buildPeopleSection(), _buildGroupedSection()],
+            )
+          )
         ),
         bottomNavigationBar: displayNav(context),
       ),

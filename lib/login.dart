@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'BLOCS/DatabaseBloc.dart';
-import 'ClientModel.dart';
 
 class Login extends StatefulWidget {
   Login({Key key, this.title}) : super(key: key);
