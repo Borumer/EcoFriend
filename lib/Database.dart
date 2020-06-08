@@ -76,15 +76,10 @@ class DBProvider {
     return list;
   }
 
-  getClientByName(String name) async {
+  getClientLogin(String name, String password) async {
     final db = await database;
-    var res = await db.rawQuery("SELECT * FROM Client WHERE last_name = ? OR first_name = ? OR first_name || ' ' || last_name = ?", [name, name, name]);
+    var res = await db.rawQuery("SELECT * FROM Client WHERE password = ? AND (last_name = ? OR first_name = ? OR first_name || ' ' || last_name = ?)", [password, name, name, name]);
     return res.isNotEmpty ? Client.fromMap(res.first) : null;
-  }
-
-  getClientByPass(String pass) async {
-    final db = await database;
-    
   }
 
   Future<List<Client>> getAllClients() async {

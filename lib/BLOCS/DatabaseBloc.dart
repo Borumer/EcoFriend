@@ -24,8 +24,8 @@ class ClientsBloc {
     return DBProvider.db.getClient(id);
   }
 
-  getRowByName(String name) {
-    return DBProvider.db.getClientByName(name);
+  getRowByLogin(String name, String password) {
+    return DBProvider.db.getClientLogin(name, password);
   }
 
   getLeaderboardData(String column) {

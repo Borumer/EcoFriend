@@ -30,6 +30,7 @@ class _LoginState extends State<Login> {
                 // Validate will return true if the form is valid, or false if
                 // the form is invalid.
                 if (_formKey.currentState.validate()) {
+                  print (userName.text);
                  final destination = _read(userName.text, userPassword.text, context);
                  destination.then((response) {
                    Navigator.pushNamed(context, response);
@@ -61,7 +62,8 @@ class _LoginState extends State<Login> {
 
 Future<String> _read(String lastName, String password, BuildContext context) async {
   final bloc = ClientsBloc();
-  if (await bloc.getRowByName(lastName) != null) {
+
+  if (await bloc.getRowByLogin(lastName, password) != null) {
     return '/';
   } else {
     return '/Login';
