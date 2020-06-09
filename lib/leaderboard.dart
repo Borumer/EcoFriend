@@ -1,4 +1,4 @@
-import 'package:enviroshare/BLOCS/DatabaseBloc.dart';
+import 'package:EcoFriend/BLOCS/DatabaseBloc.dart';
 import 'package:flutter/material.dart';
 import 'nav.dart';
 import 'ClientModel.dart';
@@ -161,7 +161,7 @@ class _LeaderboardState extends State<Leaderboard> {
           behavior: ScrollBehavior(),
           child: GlowingOverscrollIndicator(
             axisDirection: AxisDirection.down,
-            color: Colors.deepOrange,
+            color: Colors.purple,
             child: ListView(
               children: [_buildFilterSection(),  _buildPeopleSection(), _buildGroupedSection()],
             )
