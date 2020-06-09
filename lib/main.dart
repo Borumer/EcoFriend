@@ -1,4 +1,4 @@
-import 'package:enviroshare/login.dart';
+import 'package:EcoFriend/login.dart';
 import 'package:flutter/material.dart';
 import 'leaderboard.dart';
 import 'profile.dart';
@@ -98,8 +98,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
-
-    Color color = Theme.of(context).primaryColor;
 
     Widget textSection = Container(
       padding: const EdgeInsets.all(32),

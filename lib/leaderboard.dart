@@ -1,6 +1,7 @@
+import 'package:EcoFriend/BLOCS/DatabaseBloc.dart';
 import 'package:flutter/material.dart';
 import 'nav.dart';
-
+import 'ClientModel.dart';
 
 class Leaderboard extends StatefulWidget {
   Leaderboard({Key key, this.title}) : super(key: key);
@@ -22,8 +23,104 @@ class _LeaderboardState extends State<Leaderboard> {
     super.initState();
   }
 
-  Widget _buildFilterSection() {
+  final TextStyle lbSlot = TextStyle(
+    fontSize: 20.0,
+    height: 2,
+  );
+  ClientsBloc bloc = ClientsBloc();
 
+  Widget _buildGroupedSection() {
+    return Container(
+      child: StreamBuilder<List<Client>>(
+        stream: Stream.fromFuture(bloc.getLeaderboardDataDefault()),
+        builder: (BuildContext context, AsyncSnapshot<List<Client>> snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: 10,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                Client item = snapshot.data[index];
+                return Container(
+                  child: Center(
+                      child: Container(
+                          width: 400,
+                          color: Colors.orange[600],
+                          padding: EdgeInsets.all(10.0),
+                          margin: EdgeInsets.symmetric(vertical: 2),
+                          child: ListTile(
+                              title: Text(item.toMap()['school'], style: lbSlot),
+                              leading: Text((index + 1).toString(), style: lbSlot,
+                              ),
+                              trailing: Text(item.toMap()['points'].toString() + " pts")
+                          )
+                      )
+                  ),
+                );
+              }
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator()
+            );
+          }
+        },
+      )
+    );
+  }
+
+  ClientsBloc bloc2 = ClientsBloc();
+
+  Widget _buildPeopleSection() {
+    print(bloc2.clients.toString());
+    return Container(
+      child: StreamBuilder<List<Client>>(
+        stream: bloc2.clients,
+        builder: (BuildContext context, AsyncSnapshot<List<Client>> snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: 10,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                Client item = snapshot.data[index];
+                String toDisplay = item.toMap()[dropdownValue.toLowerCase()];
+                if (item == null) {
+                  item = Client(firstName: "Not available", school: "Not available");
+                } else {
+                  if (toDisplay == null) {
+                    toDisplay = item.toMap()['first_name'];
+                    toDisplay += " " + item.toMap()['last_name'];
+                  }
+                }
+
+                return Container(
+                  child: Center(
+                      child: Container(
+                        width: 400,
+                        color: Colors.orange[600],
+                        padding: EdgeInsets.all(10.0),
+                        margin: EdgeInsets.symmetric(vertical: 2),
+                        child: ListTile(
+                          title: Text(toDisplay, style: lbSlot),
+                          leading: Text((index + 1).toString(), style: lbSlot,
+                          ),
+                          trailing: Text(item.toMap()['points'].toString() + " pts")
+                        )
+                    )
+                  ),
+                );
+              },
+            );
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _buildFilterSection() {
     return Container(
       padding: EdgeInsets.all(10.0),
       child: DropdownButton<String>(
@@ -52,84 +149,6 @@ class _LeaderboardState extends State<Leaderboard> {
     );
   }
 
-  Widget _buildLeaderboardSection() {
-    List<dynamic> pplData = [{
-      "Individual": "Varun",
-      "School": "Lower Moreland High School",
-      "State": "Pennsylvania",
-      "Nation": "United States"
-    },{
-      "Individual": "Fred",
-      "School": "Upper Moreland High School",
-      "State": "Colorado",
-      "Nation": "Mexico"
-    },{
-      "Individual": "Victoria",
-      "School": "John Hopkins University",
-      "State": "Bayern",
-      "Nation": "Canada"
-    },{
-      "Individual": "Lan",
-      "School": "University of Texas at Dallas",
-      "State": "Goa",
-      "Nation": "India"
-    },{
-      "Individual": "Bob",
-      "School": "Princeton University",
-      "State": "Texas",
-      "Nation": "Germany"
-    },{
-      "Individual": "Jose",
-      "School": "Julia R. Masterman School",
-      "State": "Quintana Roo",
-      "Nation": "China"
-    },{
-      "Individual": "User654335",
-      "School": "James Madison University",
-      "State": "Great Britain",
-      "Nation": "United Kingdom"
-    },{
-      "Individual": "User624965",
-      "School": "Harvard University",
-      "State": "Paris",
-      "Nation": "France"
-    },{
-      "Individual": "Neil",
-      "School": "Concord High School",
-      "State": "New Jersey",
-      "Nation": "Panama"
-    }, {
-      "Individual": "Mary",
-      "School": "Newark High School",
-      "State": "New York",
-      "Nation": "South Africa"
-    }];
-    var lb = List<Widget>();
-    for (var i = 0; i < pplData.length; i++) {
-      String val = pplData[i][dropdownValue];
-      lb.add(
-         Container(
-             width: 400,
-             color: Colors.orange[600],
-             padding: EdgeInsets.all(10.0),
-             margin: EdgeInsets.symmetric(vertical: 2),
-             child: Text(
-                 "${i + 1}      $val",
-                 style: TextStyle(
-                  fontSize: 20.0,
-                  height: 2,
-                 )
-             )
-         )
-      );
-    }
-    return Container(
-        child: Column(
-          children: lb
-        )
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -138,8 +157,15 @@ class _LeaderboardState extends State<Leaderboard> {
         appBar: AppBar(
           title: Center(child: Text('Your Leaderboard')),
         ),
-        body: ListView(
-            children: [_buildFilterSection(), _buildLeaderboardSection()],
+        body: ScrollConfiguration(
+          behavior: ScrollBehavior(),
+          child: GlowingOverscrollIndicator(
+            axisDirection: AxisDirection.down,
+            color: Colors.purple,
+            child: ListView(
+              children: [_buildFilterSection(),  _buildPeopleSection(), _buildGroupedSection()],
+            )
+          )
         ),
         bottomNavigationBar: displayNav(context),
       ),

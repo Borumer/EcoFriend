@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'BLOCS/DatabaseBloc.dart';
 
 class Login extends StatefulWidget {
   Login({Key key, this.title}) : super(key: key);
@@ -12,7 +13,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
 
   Widget _buildLoginForm() {
-    TextEditingController userEmail = new TextEditingController();
+    TextEditingController userName = new TextEditingController();
     TextEditingController userPassword = new TextEditingController();
     final _formKey = GlobalKey<FormState>();
     return Form(
@@ -20,7 +21,7 @@ class _LoginState extends State<Login> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _buildAFormField(label: "email", controller: userEmail),
+          _buildAFormField(label: "name", controller: userName),
           _buildAFormField(label: "password", controller: userPassword, obscureText: true),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
@@ -29,9 +30,11 @@ class _LoginState extends State<Login> {
                 // Validate will return true if the form is valid, or false if
                 // the form is invalid.
                 if (_formKey.currentState.validate()) {
-                  print (userEmail.text);
-                  _read();
-                  Navigator.pushNamed(context, '/');
+                  print (userName.text);
+                 final destination = _read(userName.text, userPassword.text, context);
+                 destination.then((response) {
+                   Navigator.pushNamed(context, response);
+                 });
                 }
               },
               child: Text('Submit'),
@@ -57,8 +60,14 @@ class _LoginState extends State<Login> {
   }
 }
 
-_read() async {
+Future<String> _read(String lastName, String password, BuildContext context) async {
+  final bloc = ClientsBloc();
 
+  if (await bloc.getRowByLogin(lastName, password) != null) {
+    return '/';
+  } else {
+    return '/Login';
+  }
 }
 
 Widget _buildAFormField({String label, TextEditingController controller, obscureText = false}) {
