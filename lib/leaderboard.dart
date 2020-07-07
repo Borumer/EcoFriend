@@ -2,6 +2,7 @@ import 'package:EcoFriend/BLOCS/DatabaseBloc.dart';
 import 'package:flutter/material.dart';
 import 'nav.dart';
 import 'ClientModel.dart';
+import 'rankings.dart';
 
 class Leaderboard extends StatefulWidget {
   Leaderboard({Key key, this.title}) : super(key: key);
@@ -19,8 +20,8 @@ class _LeaderboardState extends State<Leaderboard> {
   @override
   void initState() {
     // TODO: implement initState
-    dropdownValue = 'Individual';
     super.initState();
+    dropdownValue = 'Individual';
   }
 
   final TextStyle lbSlot = TextStyle(
@@ -35,30 +36,7 @@ class _LeaderboardState extends State<Leaderboard> {
         stream: Stream.fromFuture(bloc.getLeaderboardDataDefault()),
         builder: (BuildContext context, AsyncSnapshot<List<Client>> snapshot) {
           if (snapshot.hasData) {
-            return ListView.builder(
-              shrinkWrap: true,
-              itemCount: 10,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                Client item = snapshot.data[index];
-                return Container(
-                  child: Center(
-                      child: Container(
-                          width: 400,
-                          color: Colors.orange[600],
-                          padding: EdgeInsets.all(10.0),
-                          margin: EdgeInsets.symmetric(vertical: 2),
-                          child: ListTile(
-                              title: Text(item.toMap()['school'], style: lbSlot),
-                              leading: Text((index + 1).toString(), style: lbSlot,
-                              ),
-                              trailing: Text(item.toMap()['points'].toString() + " pts")
-                          )
-                      )
-                  ),
-                );
-              }
-            );
+            return Rankings(snapshot, lbSlot);
           } else {
             return Center(
               child: CircularProgressIndicator()
@@ -137,6 +115,7 @@ class _LeaderboardState extends State<Leaderboard> {
         onChanged: (String data) {
           setState(() {
             dropdownValue = data;
+            
           });
         },
         items: ['Individual', 'School', 'State', 'Nation'].map<DropdownMenuItem<String>>((String value) {
@@ -163,7 +142,7 @@ class _LeaderboardState extends State<Leaderboard> {
             axisDirection: AxisDirection.down,
             color: Colors.purple,
             child: ListView(
-              children: [_buildFilterSection(),  _buildPeopleSection(), _buildGroupedSection()],
+              children: [_buildFilterSection(),  _buildGroupedSection()],
             )
           )
         ),
