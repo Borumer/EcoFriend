@@ -16,27 +16,31 @@ class Leaderboard extends StatefulWidget {
 
 class _LeaderboardState extends State<Leaderboard> {
   String dropdownValue;
+  ClientsBloc bloc;
+  Future<List<Client>> leaderboardData;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     dropdownValue = 'Individual';
+    bloc = ClientsBloc();
+    leaderboardData = bloc.getLeaderboardData(dropdownValue);
   }
 
   final TextStyle lbSlot = TextStyle(
     fontSize: 20.0,
     height: 2,
   );
-  ClientsBloc bloc = ClientsBloc();
+  
 
   Widget _buildGroupedSection() {
     return Container(
       child: StreamBuilder<List<Client>>(
-        stream: Stream.fromFuture(bloc.getLeaderboardDataDefault()),
+        stream: Stream.fromFuture(leaderboardData),
         builder: (BuildContext context, AsyncSnapshot<List<Client>> snapshot) {
           if (snapshot.hasData) {
-            return Rankings(snapshot, lbSlot);
+            return Rankings(snapshot, lbSlot, dropdownValue.toLowerCase());
           } else {
             return Center(
               child: CircularProgressIndicator()
@@ -115,7 +119,8 @@ class _LeaderboardState extends State<Leaderboard> {
         onChanged: (String data) {
           setState(() {
             dropdownValue = data;
-            
+            print(dropdownValue);
+            leaderboardData = bloc.getLeaderboardData(dropdownValue.toLowerCase());
           });
         },
         items: ['Individual', 'School', 'State', 'Nation'].map<DropdownMenuItem<String>>((String value) {

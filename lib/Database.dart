@@ -69,8 +69,13 @@ class DBProvider {
 
   Future<List<Client>> getClientByGroup(String column) async {
     final db = await database;
-    var res = await db.rawQuery("SELECT $column, SUM(points) AS points FROM Client GROUP BY $column ORDER BY points DESC");
-    res.forEach((row) => print(row));
+    String sqliteColumn = column, groupByColumn=column;
+    if (column == "individual") {
+      sqliteColumn="id, first_name, last_name";
+      groupByColumn="id";
+    }
+    print (sqliteColumn);
+    var res = await db.rawQuery("SELECT $sqliteColumn, SUM(points) AS points FROM Client GROUP BY $groupByColumn ORDER BY points DESC LIMIT 10");
     List<Client> list =
     res.isNotEmpty ? res.map((c) => Client.fromMap(c)).toList() : [Client(firstName: "Hello", lastName: "World", points: 0, school: "Middlerock High School", state: "Never", nation: "Neverland")];
     return list;

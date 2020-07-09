@@ -32,10 +32,6 @@ class ClientsBloc {
     return DBProvider.db.getClientByGroup(column);
   }
 
-  getLeaderboardDataDefault() {
-    return getLeaderboardData("school");
-  }
-
   deleteAll() {
     DBProvider.db.deleteAll();
   }
